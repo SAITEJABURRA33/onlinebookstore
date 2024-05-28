@@ -1,7 +1,10 @@
-# azure-pipelines.yml
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-  - main
+  - master
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -14,15 +17,15 @@ stages:
     jobs:
       - job: MavenBuild
         steps:
-          - task: UseJava@1
-            inputs:
-              versionSpec: '11' # Specify the Java version you need
-              jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'PreInstalled'
+- task: JavaToolInstaller@0
+  inputs:
+    versionSpec: '22'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
           - script: |
               echo "Cloning repository..."
-              git clone https://github.com/SAITEJABURRA33/dicet_tv.git
+              git clone https://your-repo-url.git
             displayName: 'Git Clone'
 
           - script: |
@@ -30,4 +33,3 @@ stages:
               cd your-repo-directory
               mvn clean install
             displayName: 'Maven Build'
-
